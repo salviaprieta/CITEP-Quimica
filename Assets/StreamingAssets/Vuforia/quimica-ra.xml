@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <QCARConfig>
   <Tracking>
-    <ImageTarget name="fluor" size="0.200000 0.200000" />
-    <ImageTarget name="nitrogeno" size="0.200000 0.200000" />
-    <ImageTarget name="oxigeno" size="0.200000 0.199880" />
-    <ImageTarget name="cloro" size="0.200000 0.199880" />
-    <ImageTarget name="sodio" size="0.200000 0.200000" />
-    <ImageTarget name="carbono" size="0.200000 0.200000" />
-    <ImageTarget name="hidrogeno" size="0.200000 0.200000" />
+    <ImageTarget name="oxigeno" size="0.200000 0.249909" />
+    <ImageTarget name="nitrogeno" size="0.200000 0.249909" />
+    <ImageTarget name="hidrogeno" size="0.200000 0.249909" />
+    <ImageTarget name="fluor" size="0.200000 0.249909" />
+    <ImageTarget name="cloro" size="0.200000 0.249909" />
+    <ImageTarget name="carbono" size="0.200000 0.249909" />
+    <ImageTarget name="azufre" size="0.200000 0.249909" />
   </Tracking>
 </QCARConfig>

@@ -2,13 +2,13 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class inventoryManager : MonoBehaviour
+public class InventoryManager : MonoBehaviour
 {
     [SerializeField]
     UDictionary<string, bool> inventory = new UDictionary<string, bool>
         {
             { "carbono", false },
-            { "sodio", false },
+            { "azufre", false },
             { "cloro", false },
             { "oxigeno", false },
             { "nitrogeno", false },
@@ -18,6 +18,11 @@ public class inventoryManager : MonoBehaviour
 
     [SerializeField] GameObject hidrogenoUI;
     [SerializeField] GameObject carbonoUI;
+    [SerializeField] GameObject nitrogenoUI;
+    [SerializeField] GameObject oxigenoUI;
+    [SerializeField] GameObject fluorUI;
+    [SerializeField] GameObject cloroUI;
+    [SerializeField] GameObject azufreUI;
 
     UDictionary<string, GameObject> elementsUI;
 
@@ -27,6 +32,11 @@ public class inventoryManager : MonoBehaviour
         {
             { "carbono", carbonoUI },
             { "hidrogeno", hidrogenoUI },
+            { "nitrogeno", nitrogenoUI },
+            { "oxigeno", oxigenoUI },
+            { "fluor", fluorUI },
+            { "cloro", cloroUI },
+            { "azufre", azufreUI },
         };
     }
 

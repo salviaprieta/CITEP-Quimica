@@ -1,14 +1,21 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
+using TMPro;
 
-public class testManager : MonoBehaviour
+public class ChallengeManager : MonoBehaviour
 {
     [SerializeField] private Challenge[] challenges;
-    // Start is called before the first frame update
+    [SerializeField] private Challenge actualChallenge;
+    [SerializeField] private bool hasActiveChallenge;
+    [SerializeField] public int difficulty;
+    [SerializeField] private TMP_Text introductionUI;
+    [SerializeField] MenuManager menuManager;
+
     void Start()
     {
-        challenges = new Challenge[10];
+        challenges = new Challenge[2];
         challenges[0] = new Challenge(
             "El amoníaco constituye una fuente de nitrógeno para muchos procesos químicos. En particular, se investiga su uso para capturar CO2, un gas de efecto invernadero. En este desafío el reto es construir una molécula de amoníaco.",
             1,
@@ -22,8 +29,7 @@ public class testManager : MonoBehaviour
             1
         );
 
-
-        challenges[0] = new Challenge(
+        challenges[1] = new Challenge(
             "El agua resulta esencial para la vida en la Tierra, y también actúa como gas de efecto invernadero ante el calentamiento global. En este desafío te proponemos construir una molécula de agua.",
             1,
             "Agua",
@@ -37,10 +43,24 @@ public class testManager : MonoBehaviour
         );
     }
 
-    // Update is called once per frame
-    void Update()
+    public void StartChallenge(int difficulty)
     {
+        this.difficulty = difficulty;
+        List<Challenge> availableChallenges = new List<Challenge>();
 
+        for (int i = 0; i < challenges.Length; i++)
+        {
+            if (challenges[i].difficulty == difficulty)
+            {
+                availableChallenges.Add(challenges[i]);
+            }
+        }
+
+        actualChallenge = availableChallenges[Random.Range(0, challenges.Length)];
+        hasActiveChallenge = true;
+
+        introductionUI.text = actualChallenge.introduction;
+        menuManager.nextChallengeStep();
     }
 }
 
