@@ -1,56 +1,154 @@
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
-using TMPro;
 
 public class MenuManager : MonoBehaviour
 {
+    [Header("Render Cameras Logic")]
+    [SerializeField]
+    private Canvas mainCanvas;
+
+    [SerializeField]
+    private Camera mainUICamera;
+
+    [SerializeField]
+    private Camera vuforiaCamera;
+
     [Header("Menu Selector")]
-    [SerializeField] private TMP_Text badgeNumber;
+    [SerializeField]
+    private TMP_Text badgeNumber;
+
     [Header("Inventory")]
-    [SerializeField] private GameObject inventoryUI;
+    [SerializeField]
+    private GameObject inventoryUI;
+
     [Header("Camera")]
-    [SerializeField] private GameObject scanCameraAssets;
-    [SerializeField] private GameObject scanCameraUI;
-    [SerializeField] private GameObject mainCamera;
-    [SerializeField] private TMP_Text cameraScoreText;
-    [SerializeField] private TMP_Text cameraMoleculeText;
-    [SerializeField] private GameObject notificationCanvas;
-    [SerializeField] private Image notificationImage;
-    [SerializeField] private TMP_Text notificationText;
+    [SerializeField]
+    private GameObject scanCameraAssets;
+
+    [SerializeField]
+    private GameObject scanCameraUI;
+
+    [SerializeField]
+    private GameObject mainCamera;
+
+    [SerializeField]
+    private TMP_Text cameraScoreText;
+
+    [SerializeField]
+    private TMP_Text cameraMoleculeText;
+
+    [SerializeField]
+    private GameObject notificationCanvas;
+
+    [SerializeField]
+    private Image notificationImage;
+
+    [SerializeField]
+    private TMP_Text notificationText;
+
     [Header("Main Menu")]
-    [SerializeField] private GameObject mainMenu;
+    [SerializeField]
+    private GameObject mainMenu;
+
     [Header("Challenge")]
-    [SerializeField] private GameObject challengeUI;
+    [SerializeField]
+    private GameObject challengeUI;
+
     [Header("Challenge - Difficulty")]
-    [SerializeField] private GameObject challengeDificultyUI;
+    [SerializeField]
+    private GameObject challengeDificultyUI;
+
     [Header("Challenge - Introduction")]
-    [SerializeField] private GameObject challengeIntroductionUI;
+    [SerializeField]
+    private GameObject challengeIntroductionUI;
+
     [Header("Challenge - Question")]
-    [SerializeField] private GameObject challengeQuestionUI;
-    [SerializeField] private TMP_Text challengeScoreText;
-    [SerializeField] private TMP_Text challengeMoleculeText;
-    [SerializeField] private TMP_Text challengeQuestionText;
-    [SerializeField] private Text challengeFirstResponseText;
-    [SerializeField] private Text challengeSecondResponseText;
-    [SerializeField] private Text challengeThirdResponseText;
-    [SerializeField] private TMP_Text questionFeedback;
-    [SerializeField] private Button continueButton;
-    [SerializeField] private Toggle[] responseToggles;
+    [SerializeField]
+    private GameObject challengeQuestionUI;
+
+    [SerializeField]
+    private TMP_Text challengeScoreText;
+
+    [SerializeField]
+    private TMP_Text challengeMoleculeText;
+
+    [SerializeField]
+    private TMP_Text challengeQuestionText;
+
+    [SerializeField]
+    private Text challengeFirstResponseText;
+
+    [SerializeField]
+    private Text challengeSecondResponseText;
+
+    [SerializeField]
+    private Text challengeThirdResponseText;
+
+    [SerializeField]
+    private TMP_Text questionFeedback;
+
+    [SerializeField]
+    private Button continueButton;
+
+    [SerializeField]
+    private Toggle[] responseToggles;
+
     [Header("Challenge - Geometry")]
-    [SerializeField] private GameObject challengeGeometryQuestionUI;
-    [SerializeField] private Button firstGeometryOption;
-    [SerializeField] private Button secondGeometryOption;
-    [SerializeField] private Button thirdGeometryOption;
-    [SerializeField] private TMP_Text geometryFeedback;
-    [SerializeField] private Button geometryContinueButton;
+    [SerializeField]
+    private GameObject challengeGeometryQuestionUI;
+
+    [SerializeField]
+    private Button firstGeometryOption;
+
+    [SerializeField]
+    private Button secondGeometryOption;
+
+    [SerializeField]
+    private Button thirdGeometryOption;
+
+    [SerializeField]
+    private TMP_Text geometryFeedback;
+
+    [SerializeField]
+    private Button geometryContinueButton;
+
+    [Header("Challenge - Build Molecule")]
+    [SerializeField]
+    private GameObject challengeBuildMoleculeUI;
+
+    [SerializeField]
+    private GameObject[] elementToggles;
+
+    [SerializeField]
+    GameObject moleculeToBuildCanvas;
+
+    [Header("Challenge - End Game")]
+    [SerializeField]
+    private GameObject endGameUI;
+
+    [SerializeField]
+    GameObject moleculeModelCanvas;
+
+    [SerializeField]
+    private TMP_Text timerText;
+
+    [SerializeField]
+    private TMP_Text pointsText;
+
     [Header("Variables")]
-    [SerializeField] private int challengeStep = 1;
-    [SerializeField] private int inventoryCounter = 0;
+    [SerializeField]
+    private int challengeStep = 1;
+
+    [SerializeField]
+    private int inventoryCounter = 0;
 
     public void goToInventory()
     {
+        mainCanvas.GetComponent<Canvas>().worldCamera = mainUICamera;
         scanCameraAssets.SetActive(false);
         scanCameraUI.SetActive(false);
         challengeUI.SetActive(false);
@@ -61,6 +159,7 @@ public class MenuManager : MonoBehaviour
 
     public void goToScanCamera()
     {
+        mainCanvas.GetComponent<Canvas>().worldCamera = vuforiaCamera;
         inventoryUI.SetActive(false);
         mainCamera.SetActive(false);
         challengeUI.SetActive(false);
@@ -71,6 +170,7 @@ public class MenuManager : MonoBehaviour
 
     public void goToChallenge()
     {
+        mainCanvas.GetComponent<Canvas>().worldCamera = mainUICamera;
         mainMenu.SetActive(false);
         scanCameraAssets.SetActive(false);
         scanCameraUI.SetActive(false);
@@ -82,6 +182,8 @@ public class MenuManager : MonoBehaviour
             challengeIntroductionUI.SetActive(false);
             challengeQuestionUI.SetActive(false);
             challengeGeometryQuestionUI.SetActive(false);
+            challengeBuildMoleculeUI.SetActive(false);
+            endGameUI.SetActive(false);
             challengeDificultyUI.SetActive(true);
         }
         else if (challengeStep == 2)
@@ -89,6 +191,8 @@ public class MenuManager : MonoBehaviour
             challengeDificultyUI.SetActive(false);
             challengeQuestionUI.SetActive(false);
             challengeGeometryQuestionUI.SetActive(false);
+            challengeBuildMoleculeUI.SetActive(false);
+            endGameUI.SetActive(false);
             challengeIntroductionUI.SetActive(true);
         }
         else if (challengeStep == 3)
@@ -96,6 +200,8 @@ public class MenuManager : MonoBehaviour
             challengeDificultyUI.SetActive(false);
             challengeIntroductionUI.SetActive(false);
             challengeGeometryQuestionUI.SetActive(false);
+            challengeBuildMoleculeUI.SetActive(false);
+            endGameUI.SetActive(false);
             challengeQuestionUI.SetActive(true);
         }
         else if (challengeStep == 4)
@@ -103,7 +209,27 @@ public class MenuManager : MonoBehaviour
             challengeDificultyUI.SetActive(false);
             challengeIntroductionUI.SetActive(false);
             challengeQuestionUI.SetActive(false);
+            challengeBuildMoleculeUI.SetActive(false);
+            endGameUI.SetActive(false);
             challengeGeometryQuestionUI.SetActive(true);
+        }
+        else if (challengeStep == 5)
+        {
+            challengeDificultyUI.SetActive(false);
+            challengeIntroductionUI.SetActive(false);
+            challengeQuestionUI.SetActive(false);
+            challengeGeometryQuestionUI.SetActive(false);
+            endGameUI.SetActive(false);
+            challengeBuildMoleculeUI.SetActive(true);
+        }
+        else if (challengeStep == 6)
+        {
+            challengeDificultyUI.SetActive(false);
+            challengeIntroductionUI.SetActive(false);
+            challengeQuestionUI.SetActive(false);
+            challengeGeometryQuestionUI.SetActive(false);
+            challengeBuildMoleculeUI.SetActive(false);
+            endGameUI.SetActive(true);
         }
     }
 
@@ -125,7 +251,12 @@ public class MenuManager : MonoBehaviour
         challengeMoleculeText.text = newText;
     }
 
-    public void updateQuestionText(string question, string firstResponse, string secondResponse, string thirdResponse)
+    public void updateQuestionText(
+        string question,
+        string firstResponse,
+        string secondResponse,
+        string thirdResponse
+    )
     {
         challengeQuestionText.text = question;
         challengeFirstResponseText.text = firstResponse;
@@ -159,7 +290,11 @@ public class MenuManager : MonoBehaviour
         questionFeedback.text = feedback;
     }
 
-    public void updateGeometryOptionImage(Sprite firstOption, Sprite secondOption, Sprite thirdOption)
+    public void updateGeometryOptionImage(
+        Sprite firstOption,
+        Sprite secondOption,
+        Sprite thirdOption
+    )
     {
         firstGeometryOption.GetComponent<Image>().sprite = firstOption;
         secondGeometryOption.GetComponent<Image>().sprite = secondOption;
@@ -179,5 +314,60 @@ public class MenuManager : MonoBehaviour
             geometryContinueButton.interactable = false;
         }
         geometryFeedback.text = feedback;
+    }
+
+    public void updateBuildMoleculeToggles(Element[] elements)
+    {
+        for (int i = 0; i < elementToggles.Length; i++)
+        {
+            elementToggles[i].SetActive(false);
+        }
+        for (int i = 0; i < elements.Length; i++)
+        {
+            elementToggles[i].SetActive(true);
+            elementToggles[i].transform.Find("Background").GetComponent<Image>().sprite = elements[
+                i
+            ].sprite;
+        }
+    }
+
+    public void setMoleculeToBuild(GameObject moleculePrefab)
+    {
+        GameObject childObject = Instantiate(moleculePrefab);
+        childObject.transform.SetParent(moleculeToBuildCanvas.transform, false);
+        childObject.GetComponent<RectTransform>().anchorMin = new Vector2(0, 0);
+        childObject.GetComponent<RectTransform>().anchorMax = new Vector2(1, 1);
+        childObject.GetComponent<RectTransform>().offsetMin = new Vector2(0, 0);
+        childObject.GetComponent<RectTransform>().offsetMax = new Vector2(0, 0);
+    }
+
+    public void placeElement(Transform elementButton, Sprite elementSprite)
+    {
+        elementButton.GetComponent<Image>().sprite = elementSprite;
+        elementButton.Find("Image").gameObject.SetActive(false);
+    }
+
+    public void setMoleculeModel(GameObject moleculePrefab)
+    {
+        GameObject childObject = Instantiate(moleculePrefab);
+        childObject.transform.SetParent(moleculeModelCanvas.transform, false);
+    }
+
+    public void restartGame()
+    {
+        challengeStep = 0;
+        nextChallengeStep();
+    }
+
+    public void setTimer(float timer)
+    {
+        int minutes = Mathf.FloorToInt(timer / 60F);
+        int seconds = Mathf.FloorToInt(timer - minutes * 60);
+        timerText.text = string.Format("{0:0}:{1:00}", minutes, seconds);
+    }
+
+    public void setPoints(int points)
+    {
+        pointsText.text = "" + points;
     }
 }

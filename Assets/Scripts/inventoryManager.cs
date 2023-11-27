@@ -4,60 +4,61 @@ using UnityEngine;
 
 public class InventoryManager : MonoBehaviour
 {
-    [SerializeField] private Element[] inventory;
-    [SerializeField] private GameObject hidrogenoBlocker;
-    [SerializeField] private GameObject carbonoBlocker;
-    [SerializeField] private GameObject nitrogenoBlocker;
-    [SerializeField] private GameObject oxigenoBlocker;
-    [SerializeField] private GameObject fluorBlocker;
-    [SerializeField] private GameObject cloroBlocker;
-    [SerializeField] private GameObject azufreBlocker;
-    [SerializeField] private Sprite hidrogenoSprite;
-    [SerializeField] private Sprite carbonoSprite;
-    [SerializeField] private Sprite nitrogenoSprite;
-    [SerializeField] private Sprite oxigenoSprite;
-    [SerializeField] private Sprite fluorSprite;
-    [SerializeField] private Sprite cloroSprite;
-    [SerializeField] private Sprite azufreSprite;
+    [SerializeField]
+    public Element[] inventory;
+
+    [SerializeField]
+    private GameObject hidrogenoBlocker;
+
+    [SerializeField]
+    private GameObject carbonoBlocker;
+
+    [SerializeField]
+    private GameObject nitrogenoBlocker;
+
+    [SerializeField]
+    private GameObject oxigenoBlocker;
+
+    [SerializeField]
+    private GameObject fluorBlocker;
+
+    [SerializeField]
+    private GameObject cloroBlocker;
+
+    [SerializeField]
+    private GameObject azufreBlocker;
+
+    [SerializeField]
+    private Sprite hidrogenoSprite;
+
+    [SerializeField]
+    private Sprite carbonoSprite;
+
+    [SerializeField]
+    private Sprite nitrogenoSprite;
+
+    [SerializeField]
+    private Sprite oxigenoSprite;
+
+    [SerializeField]
+    private Sprite fluorSprite;
+
+    [SerializeField]
+    private Sprite cloroSprite;
+
+    [SerializeField]
+    private Sprite azufreSprite;
 
     private void Awake()
     {
         inventory = new Element[7];
-        inventory[0] = new Element(
-            "carbono",
-            "Carbono",
-            "C",
-            false,
-            carbonoBlocker,
-            carbonoSprite
-        );
+        inventory[0] = new Element("carbono", "Carbono", "C", false, carbonoBlocker, carbonoSprite);
 
-        inventory[1] = new Element(
-            "azufre",
-            "Azufre",
-            "S",
-            false,
-            azufreBlocker,
-            azufreSprite
-        );
+        inventory[1] = new Element("azufre", "Azufre", "S", false, azufreBlocker, azufreSprite);
 
-        inventory[2] = new Element(
-            "cloro",
-            "Cloro",
-            "Cl",
-            false,
-            cloroBlocker,
-            cloroSprite
-        );
+        inventory[2] = new Element("cloro", "Cloro", "Cl", false, cloroBlocker, cloroSprite);
 
-        inventory[3] = new Element(
-            "oxigeno",
-            "Oxigeno",
-            "O",
-            false,
-            oxigenoBlocker,
-            oxigenoSprite
-        );
+        inventory[3] = new Element("oxigeno", "Oxigeno", "O", false, oxigenoBlocker, oxigenoSprite);
 
         inventory[4] = new Element(
             "nitrogeno",
@@ -77,14 +78,7 @@ public class InventoryManager : MonoBehaviour
             hidrogenoSprite
         );
 
-        inventory[6] = new Element(
-            "fluor",
-            "Fluor",
-            "F",
-            false,
-            fluorBlocker,
-            fluorSprite
-        );
+        inventory[6] = new Element("fluor", "Fluor", "F", false, fluorBlocker, fluorSprite);
     }
 
     public void addElementToInventory(string element)
@@ -131,6 +125,16 @@ public class InventoryManager : MonoBehaviour
         }
         return false;
     }
+
+    public Element getElementBySymbol(string symbol)
+    {
+        for (int i = 0; i < inventory.Length; i++)
+        {
+            if (inventory[i].symbol == symbol)
+                return inventory[i];
+        }
+        return null;
+    }
 }
 
 [System.Serializable]
@@ -143,7 +147,14 @@ public class Element
     public GameObject blockerUI;
     public Sprite sprite;
 
-    public Element(string slug, string name, string symbol, bool inInventory, GameObject blockerUI, Sprite sprite)
+    public Element(
+        string slug,
+        string name,
+        string symbol,
+        bool inInventory,
+        GameObject blockerUI,
+        Sprite sprite
+    )
     {
         this.slug = slug;
         this.name = name;
