@@ -126,6 +126,9 @@ public class MenuManager : MonoBehaviour
     [SerializeField]
     GameObject moleculeToBuildCanvas;
 
+    [SerializeField]
+    GameObject moleculeToBuild;
+
     [Header("Challenge - End Game")]
     [SerializeField]
     private GameObject endGameUI;
@@ -138,6 +141,9 @@ public class MenuManager : MonoBehaviour
 
     [SerializeField]
     private TMP_Text pointsText;
+
+    [SerializeField]
+    GameObject moleculeModel;
 
     [Header("Variables")]
     [SerializeField]
@@ -333,29 +339,37 @@ public class MenuManager : MonoBehaviour
 
     public void setMoleculeToBuild(GameObject moleculePrefab)
     {
-        GameObject childObject = Instantiate(moleculePrefab);
-        childObject.transform.SetParent(moleculeToBuildCanvas.transform, false);
-        childObject.GetComponent<RectTransform>().anchorMin = new Vector2(0, 0);
-        childObject.GetComponent<RectTransform>().anchorMax = new Vector2(1, 1);
-        childObject.GetComponent<RectTransform>().offsetMin = new Vector2(0, 0);
-        childObject.GetComponent<RectTransform>().offsetMax = new Vector2(0, 0);
+        moleculeToBuild = Instantiate(moleculePrefab);
+        moleculeToBuild.transform.SetParent(moleculeToBuildCanvas.transform, false);
+        moleculeToBuild.GetComponent<RectTransform>().anchorMin = new Vector2(0, 0);
+        moleculeToBuild.GetComponent<RectTransform>().anchorMax = new Vector2(1, 1);
+        moleculeToBuild.GetComponent<RectTransform>().offsetMin = new Vector2(0, 0);
+        moleculeToBuild.GetComponent<RectTransform>().offsetMax = new Vector2(0, 0);
     }
 
     public void placeElement(Transform elementButton, Sprite elementSprite)
     {
         elementButton.GetComponent<Image>().sprite = elementSprite;
+        elementButton.GetComponent<Image>().color = new Color(
+            elementButton.GetComponent<Image>().color.r,
+            elementButton.GetComponent<Image>().color.g,
+            elementButton.GetComponent<Image>().color.b,
+            1f
+        );
         elementButton.Find("Image").gameObject.SetActive(false);
     }
 
     public void setMoleculeModel(GameObject moleculePrefab)
     {
-        GameObject childObject = Instantiate(moleculePrefab);
-        childObject.transform.SetParent(moleculeModelCanvas.transform, false);
+        moleculeModel = Instantiate(moleculePrefab);
+        moleculeModel.transform.SetParent(moleculeModelCanvas.transform, false);
     }
 
     public void restartGame()
     {
         challengeStep = 0;
+        Destroy(moleculeToBuild);
+        Destroy(moleculeModel);
         nextChallengeStep();
     }
 

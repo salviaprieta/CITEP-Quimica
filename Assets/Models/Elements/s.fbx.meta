@@ -3,7 +3,12 @@ guid: 1a0632fa1be1f445ca6606dc6a83b3bb
 ModelImporter:
   serializedVersion: 22200
   internalIDToNameTable: []
-  externalObjects: {}
+  externalObjects:
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: electron_mat
+    second: {fileID: 2100000, guid: daf4114bf7d194a0eaae8b2d16ca5639, type: 2}
   materials:
     materialImportMode: 2
     materialName: 0
