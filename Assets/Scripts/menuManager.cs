@@ -285,7 +285,7 @@ public class MenuManager : MonoBehaviour
     {
         if (isOk)
         {
-            questionFeedback.color = Color.green;
+            questionFeedback.color = new Color(0.1f, 0.8f, 0);
             continueButton.interactable = true;
         }
         else
@@ -311,7 +311,7 @@ public class MenuManager : MonoBehaviour
     {
         if (isOk)
         {
-            geometryFeedback.color = Color.green;
+            geometryFeedback.color = new Color(0.1f, 0.8f, 0);
             geometryContinueButton.interactable = true;
         }
         else
