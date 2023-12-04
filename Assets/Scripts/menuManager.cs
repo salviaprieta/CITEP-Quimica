@@ -7,6 +7,10 @@ using UnityEngine.UI;
 
 public class MenuManager : MonoBehaviour
 {
+    [Header("Managers")]
+    [SerializeField]
+    private InventoryManager inventoryManager;
+
     [Header("Render Cameras Logic")]
     [SerializeField]
     private Canvas mainCanvas;
@@ -24,6 +28,12 @@ public class MenuManager : MonoBehaviour
     [Header("Inventory")]
     [SerializeField]
     private GameObject inventoryUI;
+
+    [SerializeField]
+    private GameObject elementInfoUI;
+
+    [SerializeField]
+    private TMP_Text elementInfoText;
 
     [Header("Camera")]
     [SerializeField]
@@ -245,6 +255,17 @@ public class MenuManager : MonoBehaviour
         goToChallenge();
     }
 
+    public void previousChallengeStep()
+    {
+        challengeStep--;
+        if (challengeStep == 0)
+        {
+            print("Cerrar app");
+            Application.Quit();
+        }
+        goToChallenge();
+    }
+
     public void updateScoreText(string newText)
     {
         cameraScoreText.text = newText;
@@ -383,5 +404,21 @@ public class MenuManager : MonoBehaviour
     public void setPoints(int points)
     {
         pointsText.text = "" + points;
+    }
+
+    public void toggleElementInfo(string elementSlug)
+    {
+        if (!elementInfoUI.activeSelf)
+        {
+            elementInfoText.text = inventoryManager
+                .getElementBySlug(elementSlug)
+                .elementDescription;
+            ;
+            elementInfoUI.SetActive(true);
+        }
+        else if (elementInfoUI.activeSelf)
+        {
+            elementInfoUI.SetActive(false);
+        }
     }
 }
