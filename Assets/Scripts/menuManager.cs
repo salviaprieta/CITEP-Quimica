@@ -260,7 +260,6 @@ public class MenuManager : MonoBehaviour
         challengeStep--;
         if (challengeStep == 0)
         {
-            print("Cerrar app");
             Application.Quit();
         }
         goToChallenge();
