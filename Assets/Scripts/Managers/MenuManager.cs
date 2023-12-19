@@ -391,6 +391,23 @@ public class MenuManager : MonoBehaviour
         Destroy(moleculeToBuild);
         Destroy(moleculeModel);
         nextChallengeStep();
+        challengeScoreText.text = "";
+        cameraScoreText.text = "";
+
+        for (int i = 0; i < responseToggles.Length; i++)
+        {
+            responseToggles[i].isOn = false;
+        }
+
+        questionFeedback.text = "";
+        questionFeedback.color = Color.black;
+
+        for (int i = 0; i < elementToggles.Length; i++)
+        {
+            elementToggles[i].GetComponent<Toggle>().isOn = false;
+        }
+
+        geometryFeedback.text = "";
     }
 
     public void setTimer(float timer)
